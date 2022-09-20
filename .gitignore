@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+facts.db
+.attach_pid*
+
 ### STS ###
 .apt_generated
 .classpath
