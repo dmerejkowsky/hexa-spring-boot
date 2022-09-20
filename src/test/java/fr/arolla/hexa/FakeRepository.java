@@ -25,4 +25,8 @@ public class FakeRepository implements Repository {
   public void addFact(int id, String fact) {
     facts.put(id, fact);
   }
+
+  public void reset() {
+    this.facts.clear();
+  }
 }

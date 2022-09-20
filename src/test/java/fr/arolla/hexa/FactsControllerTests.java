@@ -1,5 +1,6 @@
 package fr.arolla.hexa;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -25,6 +26,11 @@ class FactsControllerTests {
   void contextLoads() {
   }
 
+  @BeforeEach
+  void resetRepository() {
+    fakeRepository.reset();
+  }
+
   @Test
   void canGetFact() throws Exception {
     fakeRepository.addFact(1, "toto");
@@ -35,5 +41,12 @@ class FactsControllerTests {
     String response = result.andReturn().getResponse().getContentAsString();
 
     assertEquals("toto", response);
+  }
+
+  @Test
+  void returns404WhenFactNotFound() throws Exception {
+    final ResultActions result = mockMvc.perform(
+      get("/fact/1"));
+    result.andExpect(status().is4xxClientError());
   }
 }
